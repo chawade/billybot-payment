@@ -1,14 +1,17 @@
-from dotenv import load_dotenv
 import os
-from supabase import create_client
+from supabase import create_client, Client
 
-load_dotenv() 
+# LINE Bot Configuration
+BOT_MENTION = os.environ.get('BOT_MENTION', '@billybot')
+LINE_CHANNEL_ACCESS_TOKEN = os.environ.get('LINE_CHANNEL_ACCESS_TOKEN')
 
-BOT_MENTION = os.getenv("BOT_MENTION", "@billybot")
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
-SERVICE_ROLE_KEY = os.getenv("SERVICE_ROLE_KEY")
-supabase = create_client(SUPABASE_URL, SERVICE_ROLE_KEY)
+# Supabase Configuration  
+SUPABASE_URL = os.environ.get('SUPABASE_URL')
+SUPABASE_ANON_KEY = os.environ.get('SUPABASE_ANON_KEY')
 
-LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
-LINE_CHANNEL_SECRET = os.getenv("LINE_CHANNEL_SECRET")
+# Check if all required environment variables are set
+if not all([LINE_CHANNEL_ACCESS_TOKEN, SUPABASE_URL, SUPABASE_ANON_KEY]):
+    raise ValueError("Missing required environment variables")
+
+# Initialize Supabase client
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
