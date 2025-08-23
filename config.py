@@ -7,11 +7,11 @@ LINE_CHANNEL_ACCESS_TOKEN = os.environ.get('LINE_CHANNEL_ACCESS_TOKEN')
 
 # Supabase Configuration  
 SUPABASE_URL = os.environ.get('SUPABASE_URL')
-SUPABASE_ANON_KEY = os.environ.get('SUPABASE_ANON_KEY')
+SERVICE_ROLE_KEY = os.environ.get('SERVICE_ROLE_KEY')
 
 # Check if all required environment variables are set
-if not all([LINE_CHANNEL_ACCESS_TOKEN, SUPABASE_URL, SUPABASE_ANON_KEY]):
+if not all([LINE_CHANNEL_ACCESS_TOKEN, SUPABASE_URL, SERVICE_ROLE_KEY]):
     raise ValueError("Missing required environment variables")
 
 # Initialize Supabase client
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
+supabase: Client = create_client(SUPABASE_URL, SERVICE_ROLE_KEY)
